@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simulador MCUV en Grados</title>
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      scale: 0.65;
+      margin-top: -100px;
+      overflow: hidden;
+    }
+    h1 {
+      text-align: center;
+      color: #000000;
+    }
+    /* Flexbox: asegura que los elementos siempre estén juntos */
+    .wrapper {
+      display: flex;
+      justify-content: center; /* Asegura alineación */
+      align-items: stretch; /* Mantiene altura igual */
+      gap: 10px; /* Espacio entre secciones */
+    }
+    .calculator, .simulator {
+      flex-grow: 1; /* Ambas secciones ocupan mismo espacio */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      min-width: 300px; /* Para evitar que se hagan demasiado pequeñas */
+    }
+    .inputs .input-group {
+      margin: 15px 0;
+      text-align: center;
+      color: #000000;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    input[type="range"] {
+      width: 80%;
+    }
+    output {
+      display: block;
+      margin-top: 5px;
+      font-size: 1.2em;
+      color: #000000;
+    }
+    .results p {
+      font-size: 1.1em;
+      color: #000000;
+      text-align: center;
+    }
+    button {
+      display: block;
+      margin: 15px auto;
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #000000;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #000000;
+    }
+    canvas {
+      display: block;
+      margin: 0 auto;
+      border-radius: 8px;
+      width: 100%; /* Ajusta el tamaño dinámicamente */
+    }
+    input[type="range"] {
+    -webkit-appearance: none; /* Elimina el estilo predeterminado en WebKit */
+    appearance: none; /* Elimina el estilo predeterminado */
+    width: 80%; /* Ancho del control */
+    height: 8px; /* Altura de la pista */
+    background: linear-gradient(to right, #0078d7 0%, #ccc 0%); /* Gradiente inicial */
+    border-radius: 5px; /* Bordes redondeados */
+    outline: none; /* Elimina el borde al hacer clic */
+    transition: background 0.3s; /* Suaviza la transición del gradiente */
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Elimina el estilo predeterminado */
+    appearance: none;
+    width: 20px; /* Ancho del control deslizante */
+    height: 20px; /* Altura del control deslizante */
+    background: #0078d7; /* Color del control deslizante */
+    border-radius: 50%; /* Forma circular */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #0078d7;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    background: #ccc; /* Color de la pista */
+    border-radius: 5px;
+}
+
+input[type="range"]::-moz-range-track {
+    background: #0078d7;
+    border-radius: 5px;
+}
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="calculator">
+      <div class="inputs">
+        <div class="input-group">
+          <label for="omega0">Velocidad Angular Inicial (°/s):</label>
+          <input type="range" id="omega0" min="0" max="600" step="10" value="0">
+          <output id="valueOmega0">0</output>
+        </div>
+        <div class="input-group">
+          <label for="alpha">Aceleración Angular (°/s²):</label>
+          <input type="range" id="alpha" min="0" max="50" step="1" value="5">
+          <output id="valueAlpha">5</output>
+        </div>
+        <div class="input-group">
+          <label for="time">Tiempo (s):</label>
+          <input type="range" id="time" min="1" max="20" step="0.1" value="5">
+          <output id="valueTime">5</output>
+        </div>
+      </div>
+      
+      <div class="results">
+      </div>
+      <button id="simulateButton">Iniciar Simulación</button>
+    </div>
+    
+    <!-- Área de simulación -->
+    <div class="simulator">
+      <h2>Simulación Visual</h2>
+      <canvas id="simulation" width="400" height="400"></canvas>
+    </div>
+  </div>
+
+  <script>
+    function calcularMCUV() {
+      const omega0 = parseFloat(document.getElementById("omega0").value);
+      const alpha  = parseFloat(document.getElementById("alpha").value);
+      const t      = parseFloat(document.getElementById("time").value);
+
+      const omega = omega0 + alpha * t;
+      const theta = (omega0 * t) + (0.5 * alpha * t * t);
+
+      document.getElementById("resultOmega").textContent = omega.toFixed(2);
+      document.getElementById("resultTheta").textContent = theta.toFixed(2);
+    }
+
+    function actualizarValores() {
+      document.getElementById("valueOmega0").textContent = document.getElementById("omega0").value;
+      document.getElementById("valueAlpha").textContent  = document.getElementById("alpha").value;
+      document.getElementById("valueTime").textContent   = document.getElementById("time").value;
+      calcularMCUV();
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      const inputs = document.querySelectorAll("input[type='range']");
+      inputs.forEach(input => {
+        input.addEventListener("input", actualizarValores);
+      });
+      actualizarValores();
+    });
+
+    document.getElementById("simulateButton").addEventListener("click", iniciarSimulacion);
+
+    function iniciarSimulacion() {
+      const omega0 = parseFloat(document.getElementById("omega0").value);
+      const alpha  = parseFloat(document.getElementById("alpha").value);
+      const totalTime = parseFloat(document.getElementById("time").value);
+
+      const canvas = document.getElementById("simulation");
+      const ctx = canvas.getContext("2d");
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const orbitRadius = 150;
+
+      let startTime = null;
+
+      function animate(currentTime) {
+        if (!startTime) {
+          startTime = currentTime;
+        }
+        let elapsed = (currentTime - startTime) / 1000;
+        if (elapsed > totalTime) elapsed = totalTime;
+
+        const angleTotal = omega0 * elapsed + 0.5 * alpha * elapsed * elapsed;
+        const drawAngle = (angleTotal % 360) * (Math.PI / 180);
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, orbitRadius, 0, 2 * Math.PI);
+        ctx.strokeStyle = "#000000";
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, 5, 0, 2 * Math.PI);
+        ctx.fillStyle = "#000000";
+        ctx.fill();
+
+        const movingX = centerX + orbitRadius * Math.cos(drawAngle);
+        const movingY = centerY + orbitRadius * Math.sin(drawAngle);
+
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.lineTo(movingX, movingY);
+        ctx.strokeStyle = "#000000";
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(movingX, movingY, 10, 0, 2 * Math.PI);
+        ctx.fillStyle = "#000000";
+        ctx.fill();
+
+        ctx.fillStyle = "#000";
+        ctx.font = "30px Arial";
+        ctx.fillText("Giro de: " + angleTotal.toFixed(2) + "°", 10, 40);
+
+        if (elapsed < totalTime) {
+          requestAnimationFrame(animate);
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+    const rangeInputs = document.querySelectorAll('input[type="range"]');
+    rangeInputs.forEach(input => {
+        input.addEventListener('input', function() {
+            const value = (this.value - this.min) / (this.max - this.min) * 100; // Calcula el porcentaje
+            this.style.background = `linear-gradient(to right, #0078d7 ${value}%, #ccc ${value}%)`;
+        });
+    });
+
+    // Escucha los eventos de teclado en el iframe
+    document.addEventListener('keydown', (event) => {
+        // Envía el evento al documento principal
+        window.parent.postMessage({ type: 'keydown', key: event.key }, window.location.origin);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,375 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-image: url('https://youtu.be/VJIxbhO8WdM'); /* Ruta de la imagen */
+    background-size: cover; /* Ajusta la imagen para cubrir toda la pantalla */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header h1 {
+    margin: 0;
+    border-radius: 10px;
+}
+
+
+.flip-card {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    gap: 15px;
+    width: 100vw; 
+    height: 85vh; 
+}
+.flip-card-back img {
+    margin: 10px; /* Ajusta el valor según el espacio que desees */
+    max-width: calc(100% - 20px); /* Asegúrate de que la imagen no desborde */
+    max-height: calc(100% - 20px); /* Ajusta el alto si es necesario */
+}
+    
+    
+.flip-card1 {
+    grid-row: span 6 / span 6;
+    grid-column-start: 1;
+    grid-row-start: 2;
+}
+
+.flip-card2 {
+    grid-row: span 6 / span 6;
+    grid-column-start: 2;
+    grid-row-start: 2;
+}
+
+.flip-card3 {
+    grid-column: span 2 / span 2;
+    grid-row: span 3 / span 3;
+    grid-column-start: 3;
+    grid-row-start: 2;
+    
+}
+
+.flip-card4 {
+    grid-column: span 2 / span 2;
+    grid-row: span 3 / span 3;
+    grid-column-start: 3;
+    grid-row-start: 5;
+}
+
+.flip-card5 {
+    grid-row: span 3 / span 3;
+    grid-column-start: 5;
+    grid-row-start: 2;
+}
+
+.flip-card6 {
+    grid-row: span 3 / span 3;
+    grid-column-start: 5;
+    grid-row-start: 5;
+}
+
+.flip-card7 {
+    grid-column: span 5 / span 5;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    margin-bottom: 20px;
+    height: 80px; /* Altura fija para el encabezado */
+    grid-row-start: 1;
+    grid-column: span 5;
+
+    
+}
+         
+        
+footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+}
+footer {
+    background-color: rgba(0, 0, 0, 0.8); 
+    color: white;
+    padding: 10px 0;
+    border-radius: 10px;
+    text-align: center;
+    bottom: 0;
+    opacity: 0.8;
+}
+
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que el video cubra toda la pantalla */
+    z-index: -1; /* Envía el video al fondo */
+}
+
+
+.container {
+    text-align: center;
+}
+
+.rotation-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 20px auto;
+}
+
+.axis {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: #f7ff18;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 5px dashed rgb(255, 136, 0);
+    animation: giro1 5s linear infinite;
+}
+@keyframes giro1 {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg); 
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+.rotating-point {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Mantiene la forma circular */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+    background-image: url('tierra.gif'); /* Ruta del GIF local */
+    background-size: cover; /* Asegura que el GIF cubra todo el contenedor */
+    background-position: center; /* Centra el GIF */
+    mix-blend-mode: multiply; /* Mezcla los colores para eliminar el blanco */
+    overflow: hidden; /* Asegura que el contenido no se salga del contenedor circular */
+}
+
+.controls {
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+input {
+    padding: 8px;
+    width: 100px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s ease-in-out; /* Suaviza la animación */
+    transform-style: preserve-3d;
+}
+
+.flip-card-inner.rotate-90 {
+    transform: rotateY(90deg); /* Rota 90 grados */
+}
+
+.flip-card-inner.flipped {
+    transform: rotateY(180deg); /* Voltea completamente para mostrar la parte trasera */
+}
+
+.flip-card-front, .flip-card-back {
+    backface-visibility: hidden; /* Oculta la parte trasera cuando no está volteada */
+}
+
+.flip-card-back {
+    transform: rotateY(180deg); /* Asegura que la parte trasera esté correctamente orientada */
+}
+
+.flip-card7:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+.flip-card1:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+.flip-card2:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+.flip-card3:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+.flip-card4:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+.flip-card5:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+.flip-card6:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    backface-visibility: hidden; /* Oculta la parte trasera */
+}
+
+.flip-card-front-header, .flip-card-back-header {
+    backface-visibility: hidden;
+}
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    transition: transform 0.6s;
+    transform: rotateY(180deg);
+    background-color: #0078d7;
+    color: #ffffff;
+    border-radius: 5%;
+    opacity: 0.9;
+}
+.flip-card-front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #000000;
+    color: #0078d7;
+    border-radius: 5%;
+    opacity: 0.8;
+}
+.flip-card-back-header{
+    display: flex; /* Activa flexbox */
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform: rotateY(180deg);
+    /* Elimina márgenes negativos que afectan la posición */
+    margin-top: 0;
+    margin-bottom: 0;
+    /* Mantén el resto de tus estilos actuales */
+    color: #0078d7;
+    background-color: #000000;
+    opacity: 0.8;
+    border-radius: 10px;
+    padding: 20px 0px;
+    text-align: center;
+
+}
+.flip-card-front-header {
+    display: flex; /* Activa flexbox */
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* Elimina márgenes negativos que afectan la posición */
+    margin-top: 0;
+    margin-bottom: 0;
+    /* Mantén el resto de tus estilos actuales */
+    background-color: #0078d7;
+    color: #ffffff;
+    opacity: 0.8;
+    border-radius: 10px;
+    padding: 20px 0px;
+    text-align: center;
+}
+.flip-card1,
+.flip-card2,
+.flip-card3,
+.flip-card4,
+.flip-card5,
+.flip-card6 {
+    margin-top: 15px; /* Margen superior para todas excepto el encabezado */
+}
+
+ /* Contenedor circular donde ocurre la animación */
+ #canvas {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+  /* El pivote (punto central) */
+  .pivot {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    top: calc(50% + 10px);
+    left: calc(50% - 10px);
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+    background-image: url('rueda.png'); /* Ruta del GIF local */
+    background-size: cover; /* Asegura que el GIF cubra todo el contenedor */
+    background-position: center; /* Centra el GIF */
+    mix-blend-mode: multiply; /* Mezcla los colores para eliminar el blanco */
+    overflow: hidden; /* Asegura que el contenido no se salga del contenedor circular */
+  }
+  /* El punto que rota */
+  .dot {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+    background-image: url('canasta.webp'); /* Ruta del GIF local */
+    background-size: cover; /* Asegura que el GIF cubra todo el contenedor */
+    background-position: center; /* Centra el GIF */
+    mix-blend-mode: multiply; /* Mezcla los colores para eliminar el blanco */
+    overflow: hidden; /* Asegura que el contenido no se salga del contenedor circular */
+  }
+  /* Controles */
+  #controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    border-radius: 10px;
+  }
+  #inputAcceleration {
+    padding: 5px;
+    font-size: 1rem;
+    width: 100px;
+    border-radius: 5%;
+    margin-left: 10px;
+    border-radius: 10px;
+  }
+  #startBtn {
+    padding: 5px 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5%;
+    border-radius: 10px;
+  }
+ .cp {
+    position: absolute;
+    top: 0; 
+}
+
+.hidden {
+    opacity: 0; /* Hace que las flip cards sean invisibles */
+    visibility: hidden; /* Oculta visualmente las flip cards */
+    transition: opacity 0.6s ease-in-out; /* Suaviza la transición */
+    /* Elimina pointer-events: none para permitir la interacción */
+}
+

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=6.0">
+    <title>cartelera digital</title>
+    <link rel="stylesheet" href="carteleradigital.css">
+</head>
+<body>
+    <video autoplay muted loop id="background-video">
+        <source src="video fondo.mp4"type="video/mp4">
+        Tu navegador no soporta la reproducción de videos.
+    </video>
+
+    <div class="flip-card">
+        <div class="flip-card7">
+            <div class="flip-card-inner">
+                <div class="flip-card-front-header">
+                    <h1>MOVIMIENTO CIRCULAR</h1>
+                </div>
+                <div class="flip-card-back-header">
+                    <h2>                 el movimiento circular es el movimiento de un objeto que se desplaza a lo largo de una trayectoria circular. Este tipo de movimiento es común en muchos fenómenos naturales y artificiales, como el movimiento de los planetas alrededor del sol, el giro de una rueda o el movimiento de un satélite alrededor de un planeta.
+</h2>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card1">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h2></h2>
+                    <h2>Movimiento circular uniforme</h2>
+                     (MCU) es el movimiento de un objeto que se desplaza a lo largo de una trayectoria circular con una velocidad constante.
+                    <h2></h2>
+                </div>
+                <div class="flip-card-back">
+                    <div class="container">
+                        <h1>Ejemplo</h1>
+                        <div class="rotation-container">
+                            <div class="axis"></div>
+                            <div class="rotating-point" id="rotatingPoint"></div>
+                        </div>
+                        <div class="controls">
+                            <label for="speedInput">Velocidad (grados/segundo):</label>
+                            <input type="number" id="speedInput" value="90" min="30" max="360" step="10">
+                        </div>
+                    </div>
+                    <p></p>
+
+                    
+                </div>
+            </div>
+        </div>
+        <div class="flip-card2">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+
+                    <h2>Movimiento Circular Uniformemente Variado</h2>
+                    <p>El movimiento circular uniformemente variado (MCUV) es un tipo de movimiento circular en el que la velocidad angular del objeto cambia de manera uniforme a lo largo del tiempo. En otras palabras, la aceleración angular es constante.</p>
+                </div>
+                <div class="flip-card-back">
+                    <h1>Ejemplo</h1>
+                    <div id="canvas">
+                        <div class="pivot"></div>
+                        <div class="dot" id="dot"></div>
+                      </div>
+                      <p>Aceleración (grados/s²)</p>
+                      <div id="controls">
+                        <input type="number" id="inputAcceleration" placeholder="Aceleración (grados/s²)" value="10" min="0" max="25">
+                        <button id="startBtn">Iniciar Movimiento</button>
+                      </div>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card3">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h2>Frontal</h2>
+                </div>
+                <div class="flip-card-back">
+                    <iframe src="fhajhs.html" width="600" height="256" style="border: none"; ;></iframe>
+
+                        </text>
+                        </g>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card4">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h2>Frontal</h2>
+                </div>
+                <div class="flip-card-back">
+                    <p></p>
+                    <iframe src="ajkd.html" width="600" height="256" style="border: none"; ;></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card5">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h2>Frontal</h2>
+                </div>
+                <div class="flip-card-back">
+                    <p>Trasero</p>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card6">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h2>Frontal</h2>
+                </div>
+                <div class="flip-card-back">>
+                    <p>Trasero</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </main>
+    <footer id="footerButton">
+        <p>Ingenieria 2do semestre UGMA</p>
+    </footer>
+<script src="carpetadigital.js"></script>
+<script>
+// Escucha los mensajes enviados desde el iframe
+window.addEventListener('message', (event) => {
+    // Asegúrate de que el mensaje provenga de un origen confiable
+    if (event.origin === 'file:///C:/Users/santi/Documents/cartelera%20digital/cartelera%20XD.html .html') {
+        // Procesa el mensaje
+        if (event.data.type === 'keydown') {
+            const keyEvent = new KeyboardEvent('keydown', { key: event.data.key });
+            document.dispatchEvent(keyEvent); // Reenvía el evento al documento principal
+        }
+    }
+});
+
+// Ejemplo: Manejar eventos reenviados
+document.addEventListener('keydown', (event) => {
+    console.log(`Tecla presionada: ${event.key}`);
+    // Aquí puedes manejar las teclas presionadas
+    if (event.key.toLowerCase() === 'h') {
+        flipCardsInOrder('rotate-90'); // Rota las tarjetas 90 grados
+    } else if (event.key.toLowerCase() === 'v') {
+        flipCardsInOrder('flipped'); // Voltea las tarjetas para mostrar la parte trasera
+    }
+});
+
+window.parent.postMessage({ type: 'keydown', key: event.key }, 'file:///C:/Users/santi/Documents/cartelera%20digital/cartelera%20XD.html); ');
+</script>
+</body>
+</html>
+
+<style>
+</style>
+
