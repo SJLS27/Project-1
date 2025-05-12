@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gráficas Laterales: Angular y Tangencial</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      top : 0;
+      scale: 0.7;
+      overflow: hidden;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin-top: -100PX;
+      user-select: none; /* Desactiva la selección de texto */
+    -webkit-user-select: none; /* Para navegadores basados en WebKit */
+    -moz-user-select: none; /* Para Firefox */
+    -ms-user-select: none; /* Para Internet Explorer/Edge */
+    }
+    h1 {
+      text-align: center;
+    }
+    /* Contenedor principal que alinea ambas gráficas lado a lado */
+    .graph-container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    /* Contenedor individual para cada gráfica */
+    .graph {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+    }
+    
+    /* Áreas interactivas (polígonos invisibles que capturan eventos) */
+    .subarea {
+      fill: transparent;
+      pointer-events: all;
+    }
+    /* Estilo de etiquetas (parámetros) */
+    .label {
+      font-size: 22px;
+      font-weight: bold;
+      fill: #0078d7;
+    }
+    /* Recuadro para mostrar la fórmula al pasar el mouse */
+    .formulaDisplay {
+      padding: 10px;
+      border: 1px solid #000000;
+      background-color: #000000;
+      font-size: 18px;
+      min-width: 200px;
+      text-align: center;
+      border-radius: 10px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="graph-container">
+    <!-- Gráfica angular -->
+    <div class="graph" id="angularGraph">
+      <h2>Fórmulas Angulares</h2>
+      <svg width="400" height="300" viewBox="0 0 400 300">
+        <!-- Triángulo principal: vértices A=(200,50), B=(100,250) y C=(300,250) -->
+        <polygon points="200,50 100,250 300,250" fill="#DDEEFF" stroke="black" stroke-width="2"></polygon>
+        
+        <!-- División del triángulo usando puntos medios: 
+             AB=(150,150), AC=(250,150) y BC=(200,250) -->
+        <!-- Área para θ: formada por A, punto medio de AB y punto medio de AC -->
+        <polygon class="subarea" id="areaTheta"
+                 points="200,50 150,150 250,150"
+                 data-formula="θ = ω · t, desplazamiento angular "></polygon>
+        
+        <!-- Área para ω: formada por B, punto medio de AB y punto medio de BC -->
+        <polygon class="subarea" id="areaOmega"
+                 points="100,250 150,150 200,250"
+                 data-formula="ω = 2π/t₀, rapidez angular "></polygon>
+        
+        <!-- Área para t: formada por C, punto medio de AC y punto medio de BC -->
+        <polygon class="subarea" id="areaT_Ang"
+                 points="300,250 250,150 200,250"
+                 data-formula="t = θ/ω, tiempo"></polygon>
+        
+        <!-- Etiquetas en el interior del triángulo -->
+        <text class="label" x="200" y="120" text-anchor="middle">θ</text>
+        <text class="label" x="150" y="220" text-anchor="middle">ω</text>
+        <text class="label" x="250" y="220" text-anchor="middle">t</text>
+      </svg>
+      
+      <!-- Recuadro para mostrar la fórmula del triángulo angular -->
+      <div class="formulaDisplay" id="formulaDisplayAngular" title="Formulas Angulares">
+      </div>
+    </div>
+    
+    <!-- Gráfica tangencial -->
+    <div class="graph" id="tangentialGraph">
+      <h2>Fórmulas Tangenciales</h2>
+      <svg width="400" height="300" viewBox="0 0 400 300">
+        <!-- Triángulo principal: Vértices idénticos A=(200,50), B=(100,250) y C=(300,250) -->
+        <polygon points="200,50 100,250 300,250" fill="#FFEECC" stroke="black" stroke-width="2"></polygon>
+        
+        <!-- División similar con los puntos medios -->
+        <!-- Área para L: formada por A y los puntos medios de AB y AC -->
+        <polygon class="subarea" id="areaL"
+                 points="200,50 150,150 250,150"
+                 data-formula="L = v · t , longitud de arco"></polygon>
+        
+        <!-- Área para v: formada por B, el punto medio de AB y el de BC -->
+        <polygon class="subarea" id="areaV"
+                 points="100,250 150,150 200,250"
+                 data-formula="v = L/t,  rapidez tangencial"></polygon>
+        
+        <!-- Área para t: formada por C, el punto medio de AC y el de BC -->
+        <polygon class="subarea" id="areaT_Tan"
+                 points="300,250 250,150 200,250"
+                 data-formula="t = L/v , tiempo"></polygon>
+        
+        <!-- Etiquetas en el interior -->
+        <text class="label" x="200" y="120" text-anchor="middle">L</text>
+        <text class="label" x="150" y="220" text-anchor="middle">v</text>
+        <text class="label" x="250" y="220" text-anchor="middle">t</text>
+      </svg>
+      
+      <!-- Recuadro para mostrar la fórmula del triángulo tangencial -->
+      <div class="formulaDisplay" id="formulaDisplayTangential" title="Formulas Tangenciales" text="Formulas">
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Interactividad para la gráfica angular
+    const angularSubareas = document.querySelectorAll('#angularGraph .subarea');
+    const formulaDisplayAngular = document.getElementById('formulaDisplayAngular');
+    
+    angularSubareas.forEach(area => {
+      area.addEventListener('mouseover', function() {
+        formulaDisplayAngular.textContent = this.getAttribute('data-formula');
+      });
+      area.addEventListener('mouseout', function() {
+        formulaDisplayAngular.textContent = "Fórmulas Angulares";
+      });
+    });
+    
+    // Interactividad para la gráfica tangencial
+    const tangentialSubareas = document.querySelectorAll('#tangentialGraph .subarea');
+    const formulaDisplayTangential = document.getElementById('formulaDisplayTangential');
+    
+    tangentialSubareas.forEach(area => {
+      area.addEventListener('mouseover', function() {
+        formulaDisplayTangential.textContent = this.getAttribute('data-formula');
+      });
+      area.addEventListener('mouseout', function() {
+        formulaDisplayTangential.textContent = "Fórmulas Tangenciales";
+      });
+    });
+
+    // Escucha los eventos de teclado en el iframe
+    document.addEventListener('keydown', (event) => {
+        // Envía el evento al documento principal
+        window.parent.postMessage({ type: 'keydown', key: event.key }, window.location.origin);
+    });
+  </script>
+</body>
+</html>
