@@ -314,8 +314,8 @@ input {
     position: absolute;
     width: 300px;
     height: 300px;
-    top: calc(50% + 10px);
-    left: calc(50% - 10px);
+    top: calc(50%);
+    left: calc(50%);
     transform: translate(-50%, -50%);
     transform-origin: center;
     background-image: url('rueda.png'); /* Ruta del GIF local */
@@ -333,7 +333,7 @@ input {
     left: 50%;
     transform: translate(-50%, -50%);
     transform-origin: center;
-    background-image: url('canasta.webp'); /* Ruta del GIF local */
+    background-image: url('canasta.jpg'); /* Ruta del GIF local */
     background-size: cover; /* Asegura que el GIF cubra todo el contenedor */
     background-position: center; /* Centra el GIF */
     mix-blend-mode: multiply; /* Mezcla los colores para eliminar el blanco */
@@ -373,3 +373,6 @@ input {
     /* Elimina pointer-events: none para permitir la interacción */
 }
 
+.flip-card3 .flip-card-front strong {
+    line-height: 0.9; /* Ajusta el interlineado (1.2 es más compacto) */
+}
