@@ -47,7 +47,7 @@ const dot2 = document.getElementById('dot');
 const startBtn2 = document.getElementById('startBtn');
 const inputAcceleration2 = document.getElementById('inputAcceleration');
 
-const radius2 = 100; 
+const radius2 = 102; 
 let angle2 = 0;
 let angularVelocity2 = 0;
 let acceleration2 = 0.1; // Aceleración en grados por segundo cuadrado
@@ -60,10 +60,11 @@ const gradosPorRadian2 = 57.2958;
 function updateDotPosition2(angle2) {
   const centerX2 = canvas2.clientWidth / 2;
   const centerY2 = canvas2.clientHeight / 2;
-  const x2 = centerX2 + radius2 * Math.cos(angle2 * (Math.PI / 180)) - dot2.clientWidth / 2;
-  const y2 = centerY2 + radius2 * Math.sin(angle2 * (Math.PI / 180)) - dot2.clientHeight / 2;
-  dot2.style.left = x2 + 'px';
-  dot2.style.top = y2 + 'px';
+  const xOffset = radius2 * Math.cos(angle2 * (Math.PI / 180));
+  const yOffset = radius2 * Math.sin(angle2 * (Math.PI / 180));
+  // Calcula el balanceo basado en la velocidad angular
+  const wobble = Math.sin(angle2 * (Math.PI / 180)) * angularVelocity2 * 10; // Ajusta el factor según necesidad
+  dot2.style.transform = `translate(-50%, -50%) translate(${xOffset}px, ${yOffset}px) rotate(${wobble}deg)`;
 }
 
 updateDotPosition2(angle2);
