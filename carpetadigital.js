@@ -3,7 +3,7 @@ const speedInput = document.getElementById('speedInput');
 
 let angle = 0;
 let speed = parseInt(speedInput.value);
-let radius = 100;
+let radius = 160;
 let lastTimestamp = 0;
 let animationId;
 
@@ -63,7 +63,7 @@ function updateDotPosition2(angle2) {
   const xOffset = radius2 * Math.cos(angle2 * (Math.PI / 180));
   const yOffset = radius2 * Math.sin(angle2 * (Math.PI / 180));
   // Calcula el balanceo basado en la velocidad angular
-  const wobble = Math.sin(angle2 * (Math.PI / 180)) * angularVelocity2 * 10; // Ajusta el factor según necesidad
+  const wobble = Math.sin(angle2 * (Math.PI / 180)) * angularVelocity2 * -7; // Ajusta el factor según necesidad
   dot2.style.transform = `translate(-50%, -50%) translate(${xOffset}px, ${yOffset}px) rotate(${wobble}deg)`;
 }
 
@@ -147,3 +147,148 @@ document.addEventListener('keydown', (event) => {
         flipCardsInOrder('flipped'); 
     }
 });
+
+document.querySelectorAll('.flip-card-inner').forEach(card => {
+    card.addEventListener('click', function () {
+        this.classList.toggle('flipped');
+    });
+});
+
+const flipCard1 = document.querySelector('.flip-card1');
+const flipCard2 = document.querySelector('.flip-card2');
+const flipCard1Inner = flipCard1.querySelector('.flip-card-inner');
+const flipCard2Inner = flipCard2.querySelector('.flip-card-inner');
+
+// Evita que el click en input o botón dentro de flip-card1 o flip-card2 voltee la tarjeta
+document.querySelectorAll('.flip-card1 input, .flip-card1 button, .flip-card2 input, .flip-card2 button').forEach(el => {
+    el.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+});
+// Evento para flip-card1 (ya lo tienes)
+flipCard1.addEventListener('click', function () {
+    flipCard1.classList.toggle('expanded');
+    flipCard1Inner.classList.toggle('flipped');
+
+    if (flipCard1.classList.contains('expanded')) {
+        flipCard2.classList.add('shrink');
+        setTimeout(() => {
+            flipCard2.classList.add('hide');
+            flipCard2.classList.remove('shrink');
+        }, 500);
+    } else {
+        flipCard2.classList.remove('hide');
+        setTimeout(() => {
+            flipCard2.classList.remove('shrink');
+        }, 10);
+    }
+});
+
+// Evento para flip-card2 (nuevo)
+flipCard2.addEventListener('click', function () {
+    flipCard2.classList.toggle('expanded');
+    flipCard2Inner.classList.toggle('flipped');
+
+    if (flipCard2.classList.contains('expanded')) {
+        flipCard1.classList.add('shrink');
+        setTimeout(() => {
+            flipCard1.classList.add('hide');
+            flipCard1.classList.remove('shrink');
+        }, 500);
+    } else {
+        flipCard1.classList.remove('hide');
+        setTimeout(() => {
+            flipCard1.classList.remove('shrink');
+        }, 10);
+    }
+});
+
+const flipCard3 = document.querySelector('.flip-card3');
+const flipCard4 = document.querySelector('.flip-card4');
+const flipCard4Inner = flipCard4.querySelector('.flip-card-inner');
+
+// Evita que el click en input o botón dentro de flip-card4 voltee la tarjeta
+document.querySelectorAll('.flip-card4 input, .flip-card4 button').forEach(el => {
+    el.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+});
+
+flipCard4.addEventListener('click', function () {
+    flipCard4.classList.toggle('expanded');
+    flipCard4Inner.classList.toggle('flipped');
+
+    if (flipCard4.classList.contains('expanded')) {
+        flipCard3.classList.add('shrink-up');
+        setTimeout(() => {
+            flipCard3.classList.add('hide');
+            flipCard3.classList.remove('shrink-up');
+        }, 500);
+    } else {
+        flipCard3.classList.remove('hide');
+        setTimeout(() => {
+            flipCard3.classList.remove('shrink-up');
+        }, 10);
+    }
+});
+
+const flipCard5 = document.querySelector('.flip-card5');
+const flipCard6 = document.querySelector('.flip-card6');
+const flipCard5Inner = flipCard5.querySelector('.flip-card-inner');
+const flipCard6Inner = flipCard6.querySelector('.flip-card-inner');
+
+// Evita que el click en input o botón dentro de flip-card5 o flip-card6 voltee la tarjeta
+document.querySelectorAll('.flip-card5 input, .flip-card5 button, .flip-card6 input, .flip-card6 button').forEach(el => {
+    el.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+});
+
+// Evento para flip-card5
+flipCard5.addEventListener('click', function () {
+    const video6 = flipCard6.querySelector('video');
+    flipCard5.classList.toggle('expanded');
+    flipCard5Inner.classList.toggle('flipped');
+
+    if (flipCard5.classList.contains('expanded')) {
+        if (video6) video6.style.display = 'none'; // Oculta el video6 antes de encoger flipCard6
+        flipCard6.classList.add('shrink-up');
+        setTimeout(() => {
+            flipCard6.classList.add('hide');
+            flipCard6.classList.remove('shrink-up');
+        }, 500);
+    } else {
+        flipCard6.classList.remove('hide');
+        setTimeout(() => {
+            flipCard6.classList.remove('shrink-up');
+            const video5 = flipCard5.querySelector('video');
+            if (video6) video6.style.display = '';
+            if (video5) video5.style.display = '';
+        }, 10);
+    }
+});
+
+// Evento para flip-card6
+flipCard6.addEventListener('click', function () {
+    const video5 = flipCard5.querySelector('video');
+    flipCard6.classList.toggle('expanded');
+    flipCard6Inner.classList.toggle('flipped');
+
+    if (flipCard6.classList.contains('expanded')) {
+        if (video5) video5.style.display = 'none'; // Oculta el video5 antes de encoger flipCard5
+        flipCard5.classList.add('shrink-up');
+        setTimeout(() => {
+            flipCard5.classList.add('hide');
+            flipCard5.classList.remove('shrink-up');
+        }, 500);
+    } else {
+        flipCard5.classList.remove('hide');
+        setTimeout(() => {
+            flipCard5.classList.remove('shrink-up');
+            const video6 = flipCard6.querySelector('video');
+            if (video5) video5.style.display = '';
+            if (video6) video6.style.display = '';
+        }, 10);
+    }
+});
+

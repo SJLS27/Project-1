@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="carteleradigital.css">
 </head>
 <body>
-    <video autoplay muted loop id="background-video">
+    <video loop autoplay muted id="background-video">
         <source src="video fondo.mp4"type="video/mp4">
         Tu navegador no soporta la reproducción de videos.
     </video>
@@ -84,7 +84,6 @@
                 </div>
                 <div class="flip-card-back">
                     <iframe src="fhajhs.html" width="600" height="256" style="border: none"; ;></iframe>
-
                         </text>
                         </g>
                     <p></p>
@@ -103,62 +102,41 @@ rad
                 </div>
                 <div class="flip-card-back">
                     <p></p>
-                    <iframe src="ajkd.html" width="600" height="256" style="border: none"; ;></iframe>
-                </div>
+                    <iframe src="ajkd.html" width="600" height="560" style="border: none"; ;></iframe>
+            </div>
             </div>
         </div>
         <div class="flip-card5">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
-                    <h2>Frontal</h2>
+                    <h2>Demostración de movimiento circular uniformemente variado</h2>
                 </div>
                 <div class="flip-card-back">
-                    <p>Trasero</p>
+
+                    <video autoplay muted loop id="video-giro">
+                    <source src="giro1.mp4"type="video/mp4">
+                    Tu navegador no soporta la reproducción de videos.
                 </div>
             </div>
         </div>
         <div class="flip-card6">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
-                    <h2>Frontal</h2>
+                    <h2>Demostración de movimiento circular uniforme</h2>
                 </div>
-                <div class="flip-card-back">>
-                    <p>Trasero</p>
+                <div class="flip-card-back">
+                    <video autoplay muted loop id="video-giro">
+                    <source src="relos5.mp4"type="video/mp4">
+                    Tu navegador no soporta la reproducción de videos
                 </div>
             </div>
         </div>
     </div>
     </main>
     <footer id="footerButton">
-        <p>Ingenieria 2do semestre UGMA</p>
+        <strong>● Ingenieria 2do semestre UGMA ● Santiago Leal ● Simon Figueroa ● Daniel Rodriguez ● Daniel Hernandez ● David De Gouveia ●</strong>
     </footer>
 <script src="carpetadigital.js"></script>
-<script>
-// Escucha los mensajes enviados desde el iframe
-window.addEventListener('message', (event) => {
-    // Asegúrate de que el mensaje provenga de un origen confiable
-    if (event.origin === 'file:///C:/Users/santi/Documents/cartelera%20digital/cartelera%20XD.html .html') {
-        // Procesa el mensaje
-        if (event.data.type === 'keydown') {
-            const keyEvent = new KeyboardEvent('keydown', { key: event.data.key });
-            document.dispatchEvent(keyEvent); // Reenvía el evento al documento principal
-        }
-    }
-});
-
-// Ejemplo: Manejar eventos reenviados
-document.addEventListener('keydown', (event) => {
-    console.log(`Tecla presionada: ${event.key}`);
-    // Aquí puedes manejar las teclas presionadas
-    if (event.key.toLowerCase() === 'h') {
-        flipCardsInOrder('rotate-90'); // Rota las tarjetas 90 grados
-    } else if (event.key.toLowerCase() === 'v') {
-        flipCardsInOrder('flipped'); // Voltea las tarjetas para mostrar la parte trasera
-    }
-});
-
-window.parent.postMessage({ type: 'keydown', key: event.key }, 'file:///C:/Users/santi/Documents/cartelera%20digital/cartelera%20XD.html); ');
-</script>
 </body>
 </html>
 

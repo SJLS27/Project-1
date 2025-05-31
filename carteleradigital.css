@@ -3,7 +3,6 @@ body {
     margin: 0;
     padding: 0;
     line-height: 1.6;
-    background-image: url('https://youtu.be/VJIxbhO8WdM'); /* Ruta de la imagen */
     background-size: cover; /* Ajusta la imagen para cubrir toda la pantalla */
     background-position: center; /* Centra la imagen */
     background-repeat: no-repeat; /* Evita que la imagen se repita */
@@ -11,6 +10,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    overflow: hidden;
 }
 
 header h1 {
@@ -26,6 +26,8 @@ header h1 {
     gap: 15px;
     width: 100vw; 
     height: 85vh; 
+    font-family: 'unageo', Arial, sans-serif;
+    font-weight: bold;
 }
 .flip-card-back img {
     margin: 10px; /* Ajusta el valor según el espacio que desees */
@@ -38,12 +40,25 @@ header h1 {
     grid-row: span 6 / span 6;
     grid-column-start: 1;
     grid-row-start: 2;
+    transition:
+        grid-column-start 0.6s cubic-bezier(0.4,0,0.2,1),
+        grid-row-start 0.6s cubic-bezier(0.4,0,0.2,1),
+        grid-column-end 0.6s cubic-bezier(0.4,0,0.2,1),
+        grid-row-end 0.6s cubic-bezier(0.4,0,0.2,1),
+        width 0.6s cubic-bezier(0.4,0,0.2,1),
+        height 0.6s cubic-bezier(0.4,0,0.2,1),
+        left 0.6s cubic-bezier(0.4,0,0.2,1),
+        top 0.6s cubic-bezier(0.4,0,0.2,1),
+        z-index 0.6s cubic-bezier(0.4,0,0.2,1);
 }
 
 .flip-card2 {
     grid-row: span 6 / span 6;
     grid-column-start: 2;
     grid-row-start: 2;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.5s cubic-bezier(0.4,0,0.2,1);
+    transform: scaleX(1);
+    opacity: 1;
 }
 
 .flip-card3 {
@@ -89,6 +104,7 @@ header h1 {
 footer {
     position: fixed;
     width: 100%;
+    height: 95px;
     bottom: 0;
     left: 0;
     z-index: 10;
@@ -101,6 +117,10 @@ footer {
     text-align: center;
     bottom: 0;
     opacity: 0.8;
+    text-wrap: normal;
+    font-family: 'unageo', Arial, sans-serif;
+    font-size: 25px;
+    line-height: 0.5; /* Ajusta el interlineado */
 }
 
 #background-video {
@@ -127,8 +147,8 @@ footer {
 
 .axis {
     position: absolute;
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     background-color: #f7ff18;
     border-radius: 50%;
     top: 50%;
@@ -147,8 +167,8 @@ footer {
 }
 .rotating-point {
     position: absolute;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%; /* Mantiene la forma circular */
     top: 50%;
     left: 50%;
@@ -199,27 +219,6 @@ input {
     transform: rotateY(180deg); /* Asegura que la parte trasera esté correctamente orientada */
 }
 
-.flip-card7:hover .flip-card-inner {
-    transform: rotateY(180deg);
-}
-.flip-card1:hover .flip-card-inner {
-    transform: rotateY(180deg);
-}
-.flip-card2:hover .flip-card-inner {
-    transform: rotateY(180deg);
-}
-.flip-card3:hover .flip-card-inner {
-    transform: rotateY(180deg);
-}
-.flip-card4:hover .flip-card-inner {
-    transform: rotateY(180deg);
-}
-.flip-card5:hover .flip-card-inner {
-    transform: rotateY(180deg);
-}
-.flip-card6:hover .flip-card-inner {
-    transform: rotateY(180deg);
-}
 
 .flip-card-front, .flip-card-back {
     backface-visibility: hidden; /* Oculta la parte trasera */
@@ -249,7 +248,7 @@ input {
     top: 0;
     left: 0;
     background-color: #000000;
-    color: #0078d7;
+    color: #c8c8c8;
     border-radius: 5%;
     opacity: 0.8;
 }
@@ -376,4 +375,207 @@ input {
 
 .flip-card3 .flip-card-front strong {
     line-height: 0.9; /* Ajusta el interlineado (1.2 es más compacto) */
+}
+
+   @font-face {
+     font-family: 'unageo-bold';
+     src: url('ttf/Unageo-Bold.ttf') format('truetype'), 
+   }
+
+@font-face {
+    font-family: 'unageo';
+    src: url('ttf/Unageo-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'unageo';
+    src: url('ttf/Unageo.ttf') format('truetype');
+    font-weight: normal;
+}
+.flip-card{
+    font-family: Unageo;
+    font-weight: bold
+
+    ;
+}
+.footer{
+    font-family: Unageo;
+    font-weight: bold;
+}
+
+
+.flip-card1.expanded {
+    grid-column-start: 1 !important;
+    grid-row-start: 2 !important;
+    grid-column-end: 3 !important; /* Ocupa columnas 1 y 2 */
+    grid-row-end: 8 !important;    /* Ocupa las mismas filas que antes */
+    z-index: 20;
+}
+
+.flip-card1.expanded .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card2.hide {
+    display: none !important;
+}
+
+.flip-card2.shrink {
+    transform: scaleX(0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.flip-card2.expanded {
+    grid-column-start: 1 !important;
+    grid-row-start: 2 !important;
+    grid-column-end: 3 !important; /* Ocupa columnas 1 y 2 */
+    grid-row-end: 8 !important;    /* Ocupa las mismas filas que antes */
+    z-index: 20;
+}
+
+.flip-card2.expanded .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card1.shrink {
+    transform: scaleX(0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.flip-card1.hide {
+    display: none !important;
+}
+
+/* Expansión de flip-card4 hacia arriba */
+.flip-card4.expanded {
+    grid-column-start: 3 !important;
+    grid-row-start: 2 !important; /* Ahora inicia donde estaba la 3 */
+    grid-column-end: 5 !important;
+    grid-row-end: 8 !important;   /* Ocupa el espacio de la 3 y la 4 */
+    z-index: 20;
+}
+
+/* Voltea la tarjeta al expandirse */
+.flip-card4.expanded .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Animación de retracción hacia arriba para flip-card3 */
+.flip-card3.shrink-up {
+    transform: scaleY(0);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+.flip-card3.hide {
+    display: none !important;
+}
+
+/* Expansión de flip-card5 hacia arriba */
+.flip-card5.expanded {
+    grid-column-start: 5 !important;
+    grid-row-start: 2 !important; /* Ocupa desde donde está la 5 */
+    grid-column-end: 6 !important;
+    grid-row-end: 8 !important;   /* Ocupa el espacio de la 5 y la 6 */
+    z-index: 20;
+}
+
+/* Voltea la tarjeta al expandirse */
+.flip-card5.expanded .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Animación de retracción hacia arriba para flip-card6 */
+.flip-card6.shrink-up {
+    transform: scaleY(0);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+.flip-card6.hide {
+    display: none !important;
+}
+
+/* Expansión de flip-card6 hacia arriba */
+.flip-card6.expanded {
+    grid-column-start: 5 !important;
+    grid-row-start: 2 !important;
+    grid-column-end: 6 !important;
+    grid-row-end: 8 !important;
+    z-index: 20;
+}
+
+.flip-card6.expanded .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Animación de retracción hacia arriba para flip-card5 */
+.flip-card5.shrink-up {
+    transform: scaleY(0);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+.flip-card5.hide {
+    display: none !important;
+}
+.flip-card5 video {
+    border-radius: 20px;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.flip-card6 video {
+    border-radius: 20px;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.flip-card2 .flip-card-back {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+}
+.flip-card5 .flip-card-back,
+.flip-card6 .flip-card-back {
+    background: transparent !important;
+    box-shadow: none !important;
+    backface-visibility: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    z-index: 2;
+    display: block; /* <-- Cambia flex por block */
+}
+
+.flip-card5 .flip-card-back video,
+.flip-card6 .flip-card-back video {
+    object-fit: cover;
+    border-radius: 20px;
+    display: block;
+    background: transparent;
+}
+
+.flip-card5 .flip-card-back video:fullscreen,
+.flip-card6 .flip-card-back video:fullscreen {
+    width: 100% !important;
+    height: 500px !important;
+    max-width: 100% !important;
+    max-height: 500px !important;
+    border-radius: 20px !important;
 }
